@@ -25,6 +25,9 @@ The current status is described in the console logs, so you have real-time acces
 
 ## Installation
 
+1. Download chromedriver and locate it on chromedriver folder depending on OS
+
+2. Install Selenium:
 ```
 pip install -r requirements.txt
 ```
@@ -76,8 +79,13 @@ EMAIL_CREDENTIALS = {
 
 Run:
 
+
+Note: check python version with which python
+if not using the one in the environment: alias python=/Users/cognistx2019/anaconda3/envs/agrotech/bin/python3
 ```
-make run
+export PYTHONPATH = .
+python src/main.py
+#make run
 ```
 
 **Windows**

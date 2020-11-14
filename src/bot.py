@@ -21,11 +21,11 @@ class Bot:
         print("Starting sniping bot...")
 
     def go_to_login_page(self):
-        WebDriverWait(self.driver, 15).until(
+        WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.XPATH, '//*[@class="ut-login-content"]//button'))
         )
         print("Logging in...")
-        sleep(2)
+        sleep(4)
         self.driver.find_element(By.XPATH, '//*[@class="ut-login-content"]//button').click()
 
         WebDriverWait(self.driver, 10).until(
@@ -72,13 +72,36 @@ class Bot:
         sleep(2)
 
     def go_to_transfer_market(self):
+
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
+        )
         self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
 
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, 'ut-tile-transfer-market'))
         )
-        sleep(1)
+        sleep(2)
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-market').click()
+
+    def relist_transfer_list(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
+        )
+        self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
+        sleep(10)
+
+        WebDriverWait(self.driver, 15).until(
+            EC.visibility_of_element_located((By.CLASS_NAME, 'ut-tile-transfer-list'))
+        )
+        sleep(15)
+        
+        self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
+        sleep(10)
+
+        self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
+
+        return
 
     def search_player(self, player, max_price):
         count = 1
@@ -86,7 +109,7 @@ class Bot:
         coins = self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "")
         print("Number of coins: " + coins)
 
-        while int(coins.replace(',', '')) >= max_price and success_count < 15:
+        while int(coins.replace(',', '')) >= max_price and success_count < 5:
             sleep(randint(7,15))
             if count % INCREASE_COUNT == 0:
                 min_price_input = self.driver.find_element(By.XPATH, '(//input[contains(@class, "numericInput")])[3]')
@@ -171,6 +194,27 @@ class Bot:
             print("Looking for " + player + " with max price " + str(max_price) + "...")
 
             self.search_player(player, max_price)
+
+        except TimeoutException:
+            print("Error, check the browser")
+
+
+    def buy_consumable(self, item, max_price):
+        try:
+            self.go_to_transfer_market()
+
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.CLASS_NAME, 'ea-filter-bar-item-view'))
+            )
+            wait_for_shield_invisibility(self.driver)
+                            ### DO NOT FIND THIS
+            self.driver.find_element(By.XPATH, '(//button[@class="ea-filter-bar-item-view"])[4]').click()
+            sleep(0.1)
+
+            #self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-search-filter-control")]//row').click()
+            #sleep(0.1)
+
+            #self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-player-search-control")]//input').send_keys(player)
 
         except TimeoutException:
             print("Error, check the browser")

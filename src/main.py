@@ -7,6 +7,8 @@ if LOGIN_MANUALLY:
 else:
     bot.login(USER)
 
-bot.buy_player(PLAYER["name"], PLAYER["cost"])
+#bot.buy_player(PLAYER["name"], PLAYER["cost"])
+#bot.buy_consumable('shadow', 2100)
+bot.relist_transfer_list()
 
 

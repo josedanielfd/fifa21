@@ -28,11 +28,11 @@ URL = "https://www.ea.com/en-gb/fifa/ultimate-team/web-app/"
 EA_EMAIL = "EA@e.ea.com"
 
 PLAYER = {
-    "name": "Klostermann",
-    "cost": 2800,
+    "name": "Kante",
+    "cost": 350000,
 }
 
-INCREASE_COUNT = 20
+INCREASE_COUNT = 5
 
 LOGIN_MANUALLY = True
 
