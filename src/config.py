@@ -3,7 +3,7 @@ import platform
 import os
 
 
-def create_driver():
+def create_driver(existing_session=True, executor_url="http://127.0.0.1:64887", session_id="0d86b7512a6cc5dcad89cee4f8facc31"):
     system = platform.system()
 
     if system == 'Darwin':
@@ -14,11 +14,15 @@ def create_driver():
         path = os.getcwd() + '\chrome_windows\chromedriver.exe'
     else:
         raise OSError(f'Operating system {system} is not supported')
-
-    driver = webdriver.Chrome(
-        executable_path=path
-    )
-    driver.maximize_window()
+    
+    if existing_session == False:
+        driver = webdriver.Chrome(
+            executable_path=path
+        )
+        driver.maximize_window()
+    else:
+        driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
+        driver.session_id = session_id
 
     return driver
 

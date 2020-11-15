@@ -85,23 +85,24 @@ class Bot:
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-market').click()
 
     def relist_transfer_list(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
+        WebDriverWait(self.driver, 12).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer'))
         )
         self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
         sleep(10)
 
         WebDriverWait(self.driver, 15).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'ut-tile-transfer-list'))
+            EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list'))
         )
-        sleep(15)
-        
+
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
-        sleep(10)
+        sleep(2.5)
 
         self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
+        sleep(2)
 
-        self.driver.find_element(By.XPATH, '//div[contains(@class,"view-modal-container")]//button').click()
+        self.driver.find_element_by_xpath('//span[text()="Yes"]').click()
+        #self.driver.find_element(By.XPATH, '//div[contains(@class,"view-modal-container")]//button').click()
 
         return
 
@@ -203,6 +204,12 @@ class Bot:
 
     def buy_consumable(self, item, max_price):
         try:
+            print("Buy Consumable")
+            executor_url = self.driver.command_executor._url
+            print(executor_url)
+            session_id = self.driver.session_id
+            print(session_id)
+
             self.go_to_transfer_market()
 
             WebDriverWait(self.driver, 15).until(
