@@ -1,5 +1,6 @@
 from time import sleep
 from random import randint
+import random
 
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -15,8 +16,8 @@ import time
 
 
 class Bot:
-    def __init__(self):
-        self.driver = create_driver()
+    def __init__(self, existing_session):
+        self.driver = create_driver(existing_session)
         
         executor_url = self.driver.command_executor._url
         print(executor_url)
@@ -32,7 +33,7 @@ class Bot:
             EC.element_to_be_clickable((By.XPATH, '//*[@class="ut-login-content"]//button'))
         )
         print("Logging in...")
-        sleep(4)
+        sleep(random.randint(1,30)/10)
         self.driver.find_element(By.XPATH, '//*[@class="ut-login-content"]//button').click()
 
         WebDriverWait(self.driver, 20).until(
@@ -58,7 +59,7 @@ class Bot:
         WebDriverWait(self.driver, 30).until(
             EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
         )
-        sleep(2)
+        sleep(random.randint(1,30)/10)
 
     def login_manually(self):
         self.go_to_login_page()
@@ -76,37 +77,32 @@ class Bot:
         WebDriverWait(self.driver, 300).until(
             EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
         )
-        sleep(2)
+        sleep(random.randint(1,30)/10)
 
     def go_to_transfer_market(self):
 
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'icon-transfer'))
-        )
+        WebDriverWait(self.driver, 15).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
         self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
 
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, 'ut-tile-transfer-market'))
-        )
-        sleep(2)
+        WebDriverWait(self.driver, 15).until(
+            EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-market')))
+        sleep(random.randint(1,20)/10)
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-market').click()
 
     def relist_transfer_list(self):
         WebDriverWait(self.driver, 12).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer'))
-        )
+            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
         self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
-        sleep(10)
+        sleep(random.randint(1,20)/10)
 
         WebDriverWait(self.driver, 15).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list'))
-        )
-
+            EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list')))
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
-        sleep(2.5)
+        sleep(random.randint(1,20)/10)
 
         self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
-        sleep(2)
+        sleep(random.randint(1,20)/10)
 
         self.driver.find_element_by_xpath('//span[text()="Yes"]').click()
         #self.driver.find_element(By.XPATH, '//div[contains(@class,"view-modal-container")]//button').click()
@@ -124,7 +120,7 @@ class Bot:
         print("Number of coins: " + coins)
 
         while int(coins) >= max_price and success_count < 5:
-            sleep(randint(7,15))
+            sleep(random.randint(50,100)/10)
             if count % INCREASE_COUNT == 0:
                 min_price_input = self.driver.find_element(By.XPATH, '(//input[contains(@class, "numericInput")])[3]')
                 min_price_input.click()
@@ -216,35 +212,37 @@ class Bot:
     def search_consumable(self, item, max_price):
         try:
             print("Buy Consumable")
+            print("Going to Transfer Market..")
             self.go_to_transfer_market()
 
+            print("Searching for ITEM")
             WebDriverWait(self.driver, 15).until(
                 EC.visibility_of_element_located((By.CLASS_NAME, 'ea-filter-bar-item-view'))
             )
             wait_for_shield_invisibility(self.driver)
     
             self.driver.find_element_by_xpath('//button[text()="Consumables"]').click()
-            sleep(0.8)
+            sleep(random.randint(1,20)/10)
             
             WebDriverWait(self.driver, 12).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="Position Change"]')))
             self.driver.find_element_by_xpath('//span[text()="Position Change"]').click()
             #'flat ut-search-filter-control--row-button'
-            sleep(0.5)
+            sleep(random.randint(1,20)/10)
 
             self.driver.find_element_by_xpath('//li[text()="Chemistry Styles"]').click()
-            sleep(1)
+            sleep(random.randint(1,20)/10)
 
             self.driver.find_element_by_xpath('//span[text()="Chemistry Style"]').click()
-            sleep(0.3)
+            sleep(random.randint(1,20)/10)
 
             self.driver.find_element_by_xpath('//li[text()="'+item+'"]').click()
-            sleep(1)
+            sleep(random.randint(1,20)/10)
 
             self.driver.find_element(By.XPATH, '(//input[@class="numericInput"])[2]').click()
-            sleep(0.1)
+            sleep(random.randint(1,20)/10)
 
             self.driver.find_element(By.XPATH, '(//input[@class="numericInput"])[2]').send_keys(max_price)
-            sleep(1.2)
+            sleep(random.randint(1,20)/10)
 
             # Send the search request
             self.driver.find_element_by_xpath('//button[text()="Search"]').click()
@@ -262,12 +260,13 @@ class Bot:
 
     def bid_consumable(self):
         resultSet = self.driver.find_element_by_xpath("//ul[@class='paginated']")
-        listings = resultSet.find_elements_by_tag_name("li")
+        listings = resultSet.find_elements_by_xpath("//li[contains(@class, 'has-auction-data')]")
         print("Number of listings: ", len(listings))
         print(listings[0].get_attribute("class"))
 
         for element in listings:
-            start_price = element.find_element_by_xpath('//div[text()="auctionStartPrice"]')
+            'auctionValue'
+            start_price = element.find_element_by_xpath("//div[contains(@class, 'auctionValue')][2] and .//div[contains(@class,'currency-coins value')]")
             print(start_price.text)
 
         return

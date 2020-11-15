@@ -1,9 +1,11 @@
 from selenium import webdriver
 import platform
 import os
+import yaml
+import random
 
 
-def create_driver(existing_session=True, executor_url="http://127.0.0.1:53471", session_id="e10bcc396efebf58e92f2236c719fac8"):
+def create_driver(existing_session=True):
     system = platform.system()
 
     if system == 'Darwin':
@@ -21,6 +23,11 @@ def create_driver(existing_session=True, executor_url="http://127.0.0.1:53471", 
         )
         driver.maximize_window()
     else:
+        
+        with open('config.yaml') as f:
+            config_dict = yaml.safe_load(f)
+        executor_url = config_dict['executor_url']
+        session_id = config_dict['session_id']
         driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={})
         driver.session_id = session_id
 
