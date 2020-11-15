@@ -21,14 +21,14 @@ class Bot:
         print("Starting sniping bot...")
 
     def go_to_login_page(self):
-        WebDriverWait(self.driver, 20).until(
-            EC.visibility_of_element_located((By.XPATH, '//*[@class="ut-login-content"]//button'))
+        WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, '//*[@class="ut-login-content"]//button'))
         )
         print("Logging in...")
         sleep(4)
         self.driver.find_element(By.XPATH, '//*[@class="ut-login-content"]//button').click()
 
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 20).until(
             EC.visibility_of_element_located((By.ID, 'email'))
         )
 
@@ -100,6 +100,8 @@ class Bot:
         sleep(10)
 
         self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
+
+        self.driver.find_element(By.XPATH, '//div[contains(@class,"view-modal-container")]//button').click()
 
         return
 
@@ -203,14 +205,21 @@ class Bot:
         try:
             self.go_to_transfer_market()
 
-            WebDriverWait(self.driver, 10).until(
+            WebDriverWait(self.driver, 15).until(
                 EC.visibility_of_element_located((By.CLASS_NAME, 'ea-filter-bar-item-view'))
             )
             wait_for_shield_invisibility(self.driver)
                             ### DO NOT FIND THIS
-            self.driver.find_element(By.XPATH, '(//button[@class="ea-filter-bar-item-view"])[4]').click()
-            sleep(0.1)
+            self.driver.find_element_by_xpath('//button[text()="CONSUMABLES"]').click()
+            sleep(2)
 
+            self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-player-search-control")]//input').click()
+            sleep(2)
+
+            self.driver.find_element_by_xpath('//li[text()="Chemestry Styles"]').click()
+            #select_consumable = (
+            #    Select(self.driver.find_element_by_id(""))
+            #)
             #self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-search-filter-control")]//row').click()
             #sleep(0.1)
 

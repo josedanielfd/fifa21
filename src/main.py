@@ -4,6 +4,7 @@ from config import USER, PLAYER, LOGIN_MANUALLY
 bot = Bot()
 if LOGIN_MANUALLY:
     bot.login_manually()
+    print("Login Manually Finished")
 else:
     bot.login(USER)
 
