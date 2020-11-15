@@ -3,7 +3,7 @@ import platform
 import os
 
 
-def create_driver(existing_session=True, executor_url="http://127.0.0.1:64887", session_id="0d86b7512a6cc5dcad89cee4f8facc31"):
+def create_driver(existing_session=True, executor_url="http://127.0.0.1:53471", session_id="e10bcc396efebf58e92f2236c719fac8"):
     system = platform.system()
 
     if system == 'Darwin':

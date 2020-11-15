@@ -11,17 +11,24 @@ from config import URL
 from config import create_driver, INCREASE_COUNT
 from email_manager import get_access_code
 from helpers import wait_for_shield_invisibility
+import time
 
 
 class Bot:
     def __init__(self):
         self.driver = create_driver()
+        
+        executor_url = self.driver.command_executor._url
+        print(executor_url)
+        session_id = self.driver.session_id
+        print(session_id)
+
         self.action = ActionChains(self.driver)
         self.driver.get(URL)
         print("Starting sniping bot...")
 
     def go_to_login_page(self):
-        WebDriverWait(self.driver, 30).until(
+        WebDriverWait(self.driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@class="ut-login-content"]//button'))
         )
         print("Logging in...")
@@ -106,13 +113,17 @@ class Bot:
 
         return
 
+    def get_coins(self):
+        coins = int(self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "").replace(",", ""))
+        return coins
+
     def search_player(self, player, max_price):
         count = 1
         success_count = 0
-        coins = self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "")
+        coins = self.get_coins()
         print("Number of coins: " + coins)
 
-        while int(coins.replace(',', '')) >= max_price and success_count < 5:
+        while int(coins) >= max_price and success_count < 5:
             sleep(randint(7,15))
             if count % INCREASE_COUNT == 0:
                 min_price_input = self.driver.find_element(By.XPATH, '(//input[contains(@class, "numericInput")])[3]')
@@ -125,7 +136,7 @@ class Bot:
                                                                     d.find_elements(By.CLASS_NAME, 'DetailView'))[0]
 
             if "DetailView" in result.get_attribute("class"):
-                coins = self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "").replace(",", "")
+                coins = self.get_coins()
 
                 try:
                     self.driver.find_element(By.XPATH, '//button[contains(@class, "buyButton")]').click()
@@ -137,12 +148,12 @@ class Bot:
 
                 sleep(0.5)
 
-                new_coins = self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "").replace(",", "")
+                new_coins = self.get_coins()
 
-                if int(coins) == int(new_coins):
+                if coins == new_coins:
                     print("Found something, but it was too late.")
                 else:
-                    price = int(coins) - int(new_coins)
+                    price = coins - new_coins
                     print("Success! You bought " + player + " for " + str(price) + " coins.")
                     coins = new_coins
                     success_count += 1
@@ -202,35 +213,61 @@ class Bot:
             print("Error, check the browser")
 
 
-    def buy_consumable(self, item, max_price):
+    def search_consumable(self, item, max_price):
         try:
             print("Buy Consumable")
-            executor_url = self.driver.command_executor._url
-            print(executor_url)
-            session_id = self.driver.session_id
-            print(session_id)
-
             self.go_to_transfer_market()
 
             WebDriverWait(self.driver, 15).until(
                 EC.visibility_of_element_located((By.CLASS_NAME, 'ea-filter-bar-item-view'))
             )
             wait_for_shield_invisibility(self.driver)
-                            ### DO NOT FIND THIS
-            self.driver.find_element_by_xpath('//button[text()="CONSUMABLES"]').click()
-            sleep(2)
+    
+            self.driver.find_element_by_xpath('//button[text()="Consumables"]').click()
+            sleep(0.8)
+            
+            WebDriverWait(self.driver, 12).until(EC.element_to_be_clickable((By.XPATH, '//span[text()="Position Change"]')))
+            self.driver.find_element_by_xpath('//span[text()="Position Change"]').click()
+            #'flat ut-search-filter-control--row-button'
+            sleep(0.5)
 
-            self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-player-search-control")]//input').click()
-            sleep(2)
+            self.driver.find_element_by_xpath('//li[text()="Chemistry Styles"]').click()
+            sleep(1)
 
-            self.driver.find_element_by_xpath('//li[text()="Chemestry Styles"]').click()
-            #select_consumable = (
-            #    Select(self.driver.find_element_by_id(""))
-            #)
-            #self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-search-filter-control")]//row').click()
-            #sleep(0.1)
+            self.driver.find_element_by_xpath('//span[text()="Chemistry Style"]').click()
+            sleep(0.3)
 
-            #self.driver.find_element(By.XPATH, '//div[contains(@class, "ut-player-search-control")]//input').send_keys(player)
+            self.driver.find_element_by_xpath('//li[text()="'+item+'"]').click()
+            sleep(1)
+
+            self.driver.find_element(By.XPATH, '(//input[@class="numericInput"])[2]').click()
+            sleep(0.1)
+
+            self.driver.find_element(By.XPATH, '(//input[@class="numericInput"])[2]').send_keys(max_price)
+            sleep(1.2)
+
+            # Send the search request
+            self.driver.find_element_by_xpath('//button[text()="Search"]').click()
+
+            # Check results
+            result = WebDriverWait(self.driver, 10).until(lambda d: d.find_elements(By.CLASS_NAME, 'no-results-icon') or
+                                                                    d.find_elements(By.CLASS_NAME, 'DetailView'))[0]
+            print(result)
+
+            #Bid on consumable
+            self.bid_consumable()
 
         except TimeoutException:
             print("Error, check the browser")
+
+    def bid_consumable(self):
+        resultSet = self.driver.find_element_by_xpath("//ul[@class='paginated']")
+        listings = resultSet.find_elements_by_tag_name("li")
+        print("Number of listings: ", len(listings))
+        print(listings[0].get_attribute("class"))
+
+        for element in listings:
+            start_price = element.find_element_by_xpath('//div[text()="auctionStartPrice"]')
+            print(start_price.text)
+
+        return

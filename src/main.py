@@ -10,8 +10,10 @@ else:
     bot.login(USER)
 """
 
+#To DO: Execute every hour
+
 #bot.buy_player(PLAYER["name"], PLAYER["cost"])
-#bot.buy_consumable('shadow', 2100)
-bot.relist_transfer_list()
+bot.search_consumable("SHADOW", 2100)
+#bot.relist_transfer_list()
 
 
