@@ -30,7 +30,7 @@ if __name__ == '__main__':
     #To DO: Execute every hour
 
     #bot.buy_player(PLAYER["name"], PLAYER["cost"])
-    bot.search_consumable("SHADOW", 2700)
+    bot.search_consumable("SHADOW", 2300)
     #bot.relist_transfer_list()
 
 

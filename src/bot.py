@@ -254,26 +254,45 @@ class Bot:
             print(result)
 
             #Bid on consumable
-            self.bid_consumable(max_price)
+            for i in range(10):
+                self.bid_consumable(max_price)
+                sleep(random.randint(1,10)/10)
 
         except TimeoutException:
             print("Error, check the browser")
 
     def bid_consumable(self, max_price):
+        
         resultSet = self.driver.find_element_by_xpath("//ul[@class='paginated']")
         listings = resultSet.find_elements_by_xpath("//li[contains(@class, 'has-auction-data')]")
         print("Number of listings: ", len(listings))
-        print(listings[0].get_attribute("class"))
+        list_bid_prices=[]
 
         for element in listings:
-            auction_value = element.find_element(By.XPATH, "(//div[@class='auctionValue'])[3]")
+            auction_value = element.find_element(By.XPATH, "(.//div[@class='auctionValue'])[1]")
             auction_current_bid = auction_value.find_element_by_xpath('.//span[contains(@class, "currency-coins value")]')
-            auction_current_bid_int = int(auction_current_bid.text.replace(" ", "").replace(",", ""))
-            auction_time = element.find_element_by_xpath('//span[contains(@class, "time")]')
+            auction_current_bid_int = int(auction_current_bid.text.replace(" ", "").replace(",", "").replace("---", "0"))
+            auction_time = element.find_element_by_xpath('.//span[contains(@class, "time")]')
             print("Current BID: ", auction_current_bid_int, "Time Left: ", auction_time.text)
+            
+            list_bid_prices.append(auction_current_bid_int)
 
-            if auction_current_bid_int < int(max_price):
+            # If bid is less than max price, not expired and not the highest bidder, make a bid
+            if auction_current_bid_int < int(max_price) and auction_time != "Expired" and not self.check_if_winning(element):
                 element.click()
-                sleep(random.randint(1,70)/10)
-                print("Bid TO DO: ", auction_current_bid_int+100)
+                sleep(random.randint(5,20)/10)
+
+                #Click Make Bid
+                self.driver.find_element_by_xpath('//button[text()="Make Bid"]').click()
+                sleep(random.randint(15,35)/10)
+                print("Bid Made: ", auction_current_bid_int+100)
+        
+        # If all prices greater or equal than max price, go to next page
+        if all(bid >= max_price for bid in list_bid_prices):
+            self.driver.find_element_by_xpath('//button[text()="Next"]').click()
+            print("Went to Next Page")
+
         return
+
+    def check_if_winning(self, element):
+        return "highest-bid" in element.get_attribute("class")
