@@ -3,7 +3,7 @@ from config import USER, PLAYER, LOGIN_MANUALLY
 import argparse
 
 def get_args():
-    
+
     parser = argparse.ArgumentParser(description='Bot Parameters', conflict_handler='resolve')
     parser.add_argument('--login_manually', dest='login_manually', action='store_true', default=True)
     parser.add_argument('--existing_session', dest='existing_session', action='store_true', default=False)
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     #To DO: Execute every hour
 
     #bot.buy_player(PLAYER["name"], PLAYER["cost"])
-    bot.search_consumable("SHADOW", 2100)
+    bot.search_consumable("SHADOW", 2700)
     #bot.relist_transfer_list()
 
 

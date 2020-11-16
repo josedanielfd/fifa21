@@ -1,6 +1,7 @@
 from time import sleep
 from random import randint
 import random
+import re
 
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -26,7 +27,7 @@ class Bot:
 
         self.action = ActionChains(self.driver)
         self.driver.get(URL)
-        print("Starting sniping bot...")
+        print("Starting bot...")
 
     def go_to_login_page(self):
         WebDriverWait(self.driver, 20).until(
@@ -81,7 +82,7 @@ class Bot:
 
     def go_to_transfer_market(self):
 
-        WebDriverWait(self.driver, 15).until(
+        WebDriverWait(self.driver, 25).until(
             EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
         self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
 
@@ -253,20 +254,26 @@ class Bot:
             print(result)
 
             #Bid on consumable
-            self.bid_consumable()
+            self.bid_consumable(max_price)
 
         except TimeoutException:
             print("Error, check the browser")
 
-    def bid_consumable(self):
+    def bid_consumable(self, max_price):
         resultSet = self.driver.find_element_by_xpath("//ul[@class='paginated']")
         listings = resultSet.find_elements_by_xpath("//li[contains(@class, 'has-auction-data')]")
         print("Number of listings: ", len(listings))
         print(listings[0].get_attribute("class"))
 
         for element in listings:
-            'auctionValue'
-            start_price = element.find_element_by_xpath("//div[contains(@class, 'auctionValue')][2] and .//div[contains(@class,'currency-coins value')]")
-            print(start_price.text)
+            auction_value = element.find_element(By.XPATH, "(//div[@class='auctionValue'])[3]")
+            auction_current_bid = auction_value.find_element_by_xpath('.//span[contains(@class, "currency-coins value")]')
+            auction_current_bid_int = int(auction_current_bid.text.replace(" ", "").replace(",", ""))
+            auction_time = element.find_element_by_xpath('//span[contains(@class, "time")]')
+            print("Current BID: ", auction_current_bid_int, "Time Left: ", auction_time.text)
 
+            if auction_current_bid_int < int(max_price):
+                element.click()
+                sleep(random.randint(1,70)/10)
+                print("Bid TO DO: ", auction_current_bid_int+100)
         return

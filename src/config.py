@@ -24,7 +24,7 @@ def create_driver(existing_session=True):
         driver.maximize_window()
     else:
         
-        with open('config.yaml') as f:
+        with open('/Users/cognistx2019/Documents/GitHub/fifa21/config.yaml') as f:
             config_dict = yaml.safe_load(f)
         executor_url = config_dict['executor_url']
         session_id = config_dict['session_id']
