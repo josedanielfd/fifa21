@@ -1,0 +1,28 @@
+Login Manually:  True
+Existing Session:  True
+http://127.0.0.1:65157
+d7f008750336f6373414847c80f9e3bb
+Starting bot...
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+Login Manually:  True
+Existing Session:  True
+http://127.0.0.1:60327
+32fa519e616ce72169d9af98b54df3fc
+Starting bot...
+Re list Button Not Clikable
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+Login Manually:  True
+Existing Session:  True
+http://127.0.0.1:60327
+32fa519e616ce72169d9af98b54df3fc
+Starting bot...
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold

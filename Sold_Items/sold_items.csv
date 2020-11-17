@@ -1,17 +1,16 @@
-bid,name,value,timestamp,,,
-winner_bid,Borja Iglesias,800,11/16/20 20:12,,,
-winner_bid,Zhang Yuning,300,11/16/20 20:12,,,
-winner_bid,Choi Jun Hyuk,550,11/16/20 20:12,,,
-winner_bid,Engelhardt,200,11/16/20 20:12,,,
-winner_bid,HUNTER,1600,11/16/20 20:12,,,
-winner_bid,SHADOW,3000,11/16/20 20:12,,,
-winner_bid,SHADOW,2900,11/16/20 20:12,,,
-winner_bid,SHADOW,2900,11/16/20 20:12,,,
-winner_bid,SHADOW,2800,11/16/20 20:12,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
+bid,name,value,timestamp
+winner_bid,Borja Iglesias,800,11/16/20 20:12
+winner_bid,Zhang Yuning,300,11/16/20 20:12
+winner_bid,Choi Jun Hyuk,550,11/16/20 20:12
+winner_bid,Engelhardt,200,11/16/20 20:12
+winner_bid,HUNTER,1600,11/16/20 20:12
+winner_bid,SHADOW,3000,11/16/20 20:12
+winner_bid,SHADOW,2900,11/16/20 20:12
+winner_bid,SHADOW,2900,11/16/20 20:12
+winner_bid,SHADOW,2800,11/16/20 20:12
+winner_bid,Trueman,300,11/17/20 13:27
+winner_bid,SHADOW,3000,11/17/20 13:27
+winner_bid,SHADOW,2900,11/17/20 13:27
+winner_bid,SHADOW,3000,11/17/20 13:27
+winner_bid,SHADOW,2900,11/17/20 13:27
+winner_bid,SHADOW,2900,11/17/20 13:27

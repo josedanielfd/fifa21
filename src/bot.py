@@ -29,6 +29,8 @@ class Bot:
 
         self.action = ActionChains(self.driver)
         self.driver.get(URL)
+        print("-----------------------------------------")
+        print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         print("Starting bot...")
 
     def go_to_login_page(self):
