@@ -1,7 +1,9 @@
 from time import sleep
 from random import randint
 import random
+import pandas as pd
 import re
+from datetime import datetime
 
 from selenium.common.exceptions import TimeoutException, WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -81,10 +83,17 @@ class Bot:
         sleep(random.randint(1,30)/10)
 
     def go_to_transfer_market(self):
+        sleep(random.randint(5,20)/10)
 
-        WebDriverWait(self.driver, 25).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
-        self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
+        try:
+            WebDriverWait(self.driver, 35).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
+            self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
+        except:
+            sleep(random.randint(10,30)/10)
+            WebDriverWait(self.driver, 35).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
+            self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
 
         WebDriverWait(self.driver, 15).until(
             EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-market')))
@@ -92,23 +101,96 @@ class Bot:
         self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-market').click()
 
     def relist_transfer_list(self):
-        WebDriverWait(self.driver, 12).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
-        self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
         sleep(random.randint(1,20)/10)
 
-        WebDriverWait(self.driver, 15).until(
-            EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list')))
-        self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
-        sleep(random.randint(1,20)/10)
+        try:
+            WebDriverWait(self.driver, 35).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
+            self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
+        except:
+            sleep(random.randint(20,60)/10)
+            WebDriverWait(self.driver, 35).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'icon-transfer')))
+            self.driver.find_element(By.CLASS_NAME, 'icon-transfer').click()
 
-        self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
-        sleep(random.randint(1,20)/10)
+        try:
+            sleep(random.randint(5,10)/10)
+            WebDriverWait(self.driver, 25).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list')))
+            self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
+            sleep(random.randint(5,20)/10)
+        except:
+            sleep(random.randint(20,50)/10)
+            WebDriverWait(self.driver, 25).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, 'ut-tile-transfer-list')))
+            self.driver.find_element(By.CLASS_NAME, 'ut-tile-transfer-list').click()
+            sleep(random.randint(1,20)/10)
 
-        self.driver.find_element_by_xpath('//span[text()="Yes"]').click()
-        #self.driver.find_element(By.XPATH, '//div[contains(@class,"view-modal-container")]//button').click()
+        try:
+            self.driver.find_element_by_xpath('//button[text()="Re-list All"]').click()
+            sleep(random.randint(2,10)/10)
+            self.driver.find_element_by_xpath('//span[text()="Yes"]').click()
+        except:
+            print("Re list Button Not Clikable")
+
+        # Clear Sold Items and save them
+        self.save_sold_items()
 
         return
+
+    def save_sold_items(self):
+        
+        # Get current time to save items
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Find container of listings
+        # TODO unselect first elment (otherwise is not considered)
+        
+        # Get players
+        player_listings = self.driver.find_elements_by_xpath("//li[contains(@class, 'has-auction-data won')]")
+        print("Number of players: ", len(player_listings))
+        
+        # Get items
+        items_listings = self.driver.find_elements_by_xpath("//li[contains(@class, 'has-auction-data chemistryStyle won')]")
+        print("Number of items: ", len(items_listings))
+        
+        #Combine players and items
+        listings = player_listings+items_listings
+        print("Number of listings: ", len(listings))
+
+        list_winner_bids=[]
+        for element in listings:
+            auction_current_bid_int = self.get_current_bid(element)
+
+            # Get name
+            name = element.find_element_by_xpath('.//div[contains(@class, "name")]').text
+
+            list_winner_bids.append(("winner_bid", name, auction_current_bid_int, current_time))
+            print("Winner BID: ", auction_current_bid_int, " Name: ", name, "Time: ", current_time)
+
+            #TODO get more info of sold elements
+
+        if len(listings) > 0:
+            # Save Items Sold
+            print("Saving Data..")
+            sold_data = pd.DataFrame(list_winner_bids, columns=['bids','name','winner_bid','time_stamp'])
+            sold_data.to_csv("/Users/cognistx2019/Documents/GitHub/fifa21/Sold_Items/sold_items.csv", mode='a', header=False, index=False)
+
+            # Clear Sold ITEMS
+            self.driver.find_element_by_xpath('//button[text()="Clear Sold"]').click()
+            print("Cleared Sold Items")
+        else:
+            print("No items Sold")
+        return
+
+    def get_current_bid(self, element):
+        
+        auction_value = element.find_element(By.XPATH, "(.//div[@class='auctionValue'])[1]")
+        auction_current_bid = auction_value.find_element_by_xpath('.//span[contains(@class, "currency-coins value")]')
+        auction_current_bid_int = int(auction_current_bid.text.replace(" ", "").replace(",", "").replace("---", "0"))
+        
+        return auction_current_bid_int
+
 
     def get_coins(self):
         coins = int(self.driver.find_element(By.CLASS_NAME, 'view-navbar-currency-coins').text.replace(" ", "").replace(",", ""))
@@ -233,6 +315,7 @@ class Bot:
             self.driver.find_element_by_xpath('//li[text()="Chemistry Styles"]').click()
             sleep(random.randint(1,20)/10)
 
+            # Click to select Chemistry Style
             self.driver.find_element_by_xpath('//span[text()="Chemistry Style"]').click()
             sleep(random.randint(1,20)/10)
 
@@ -263,15 +346,15 @@ class Bot:
 
     def bid_consumable(self, max_price):
         
+        # Find container of listings
         resultSet = self.driver.find_element_by_xpath("//ul[@class='paginated']")
+        # Get all the listings (Python list)
         listings = resultSet.find_elements_by_xpath("//li[contains(@class, 'has-auction-data')]")
         print("Number of listings: ", len(listings))
         list_bid_prices=[]
 
         for element in listings:
-            auction_value = element.find_element(By.XPATH, "(.//div[@class='auctionValue'])[1]")
-            auction_current_bid = auction_value.find_element_by_xpath('.//span[contains(@class, "currency-coins value")]')
-            auction_current_bid_int = int(auction_current_bid.text.replace(" ", "").replace(",", "").replace("---", "0"))
+            auction_current_bid_int = self.get_current_bid(element)
             auction_time = element.find_element_by_xpath('.//span[contains(@class, "time")]')
             print("Current BID: ", auction_current_bid_int, "Time Left: ", auction_time.text)
             

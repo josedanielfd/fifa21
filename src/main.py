@@ -1,6 +1,7 @@
 from bot import Bot
 from config import USER, PLAYER, LOGIN_MANUALLY
 import argparse
+from time import sleep
 
 def get_args():
 
@@ -30,7 +31,14 @@ if __name__ == '__main__':
     #To DO: Execute every hour
 
     #bot.buy_player(PLAYER["name"], PLAYER["cost"])
-    bot.search_consumable("SHADOW", 2300)
-    #bot.relist_transfer_list()
+    #bot.search_consumable("SHADOW", 2300)
+    
+    bot.relist_transfer_list()
+
+    '''
+    for time in range(8):
+        bot.relist_transfer_list()
+        sleep(62*60)
+    '''
 
 
