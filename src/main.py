@@ -1,7 +1,7 @@
 from bot import Bot
-from config import USER, PLAYER, LOGIN_MANUALLY
 import argparse
 from time import sleep
+import utils.utils as utils
 
 def get_args():
 
@@ -12,6 +12,7 @@ def get_args():
     return parser.parse_args()
 
 if __name__ == '__main__':
+    print("-----------------------------------------")
     args = get_args()
     login_manually = args.login_manually
     print("Login Manually: ", login_manually)
@@ -21,24 +22,27 @@ if __name__ == '__main__':
     bot = Bot(existing_session)
     if not existing_session:
         if login_manually:
-            bot.login_manually()
+            utils.login_manually(bot.driver)
             print("Login Manually Finished")
         else:
-            bot.login(USER)
+            USER = "X"
+            utils.login(bot.driver, USER)
     else:
         pass
 
-    #To DO: Execute every hour
+    items_transferlist, sold_items = bot.relist_transfer_list()
+    #available_listings = 100 - (int(items_transferlist) - sold_items)
 
+    # If sold Items is greater than zero go to market and buy shadow
+    '''
+    if available_listings > 0:
+        print("Sold Items: ", 100-available_listings)
+        bot.buy_autions("Consumable", "SHADOW", 2300)
+'''
     #bot.buy_player(PLAYER["name"], PLAYER["cost"])
-    #bot.search_consumable("SHADOW", 2300)
-    
-    bot.relist_transfer_list()
-
-    '''
-    for time in range(8):
-        bot.relist_transfer_list()
-        sleep(62*60)
-    '''
+    # bot.bid_on_autions(item_type="Consumable" 
+    #                     ,item="SHADOW", 
+    #                     max_price=2200, 
+    #                     number_desired_items=available_listings)
 
 

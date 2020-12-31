@@ -83,7 +83,8 @@ Run:
 Note: check python version with which python
 if not using the one in the environment: alias python=/Users/cognistx2019/anaconda3/envs/agrotech/bin/python3
 ```
-export PYTHONPATH = .
+export PYTHONIOENCODING="UTF-8"
+export PYTHONPATH=.
 python src/main.py \
 --login_manually \
 --existing_session

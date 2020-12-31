@@ -26,3 +26,272 @@ Number of players:  0
 Number of items:  0
 Number of listings:  0
 No items Sold
+Login Manually:  True
+Existing Session:  True
+http://127.0.0.1:60327
+32fa519e616ce72169d9af98b54df3fc
+-----------------------------------------
+2020-11-17 15:32:03
+Starting bot...
+Re list Button Not Clikable
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21/src
+Traceback (most recent call last):
+  File "main.py", line 1, in <module>
+    from bot import Bot
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 18, in <module>
+    import functions.transfer_list as transfer_list
+ModuleNotFoundError: No module named 'functions'
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 05:34:02
+Starting bot...
+Transfers not reachable at first
+Items in transfer list:  100
+Number of players:  1
+Number of items:  4
+Number of listings:  5
+Starting Price:  400 Winner BID:  600  Name:  CATALYST Time:  2020-11-26 05:34:14
+Starting Price:  400 Winner BID:  500  Name:  CATALYST Time:  2020-11-26 05:34:14
+Starting Price:  400 Winner BID:  400  Name:  CATALYST Time:  2020-11-26 05:34:14
+Starting Price:  350 Winner BID:  450  Name:  CATALYST Time:  2020-11-26 05:34:14
+Starting Price:  400 Winner BID:  550  Name:  CATALYST Time:  2020-11-26 05:34:14
+Saving Data..
+Cleared Sold Items
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 05:35:03
+Starting bot...
+Transfers not reachable at first
+Items in transfer list:  95
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+Re list Button Not Clikable
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 05:36:03
+Starting bot...
+Transfers not reachable at first
+Items in transfer list:  95
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+Re list Button Not Clikable
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 06:00:03
+Starting bot...
+Transfers not reachable at first
+Traceback (most recent call last):
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 130, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 352). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/main.py", line 33, in <module>
+    items_transferlist, sold_items = bot.relist_transfer_list()
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 39, in relist_transfer_list
+    self.driver = utils.go_to_transfers(self.driver)
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 138, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 341). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 07:00:03
+Starting bot...
+Transfers not reachable at first
+Traceback (most recent call last):
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 130, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 341). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/main.py", line 33, in <module>
+    items_transferlist, sold_items = bot.relist_transfer_list()
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 39, in relist_transfer_list
+    self.driver = utils.go_to_transfers(self.driver)
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 138, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 341). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 08:00:03
+Starting bot...
+Transfers not reachable at first
+Traceback (most recent call last):
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 130, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 341). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/main.py", line 33, in <module>
+    items_transferlist, sold_items = bot.relist_transfer_list()
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/src/bot.py", line 39, in relist_transfer_list
+    self.driver = utils.go_to_transfers(self.driver)
+  File "/Users/cognistx2019/Documents/GitHub/fifa21/utils/utils.py", line 138, in go_to_transfers
+    transfers.click()
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+    self._execute(Command.CLICK_ELEMENT)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+    return self._parent.execute(command, params)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "/Users/cognistx2019/anaconda3/envs/agrotech/lib/python3.8/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.ElementClickInterceptedException: Message: element click intercepted: Element <button class="ut-tab-bar-item icon-transfer">...</button> is not clickable at point (52, 341). Other element would receive the click: <div class="ut-click-shield showing">...</div>
+  (Session info: chrome=86.0.4240.198)
+
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 09:00:04
+Starting bot...
+Items in transfer list:  0
+Transfer List not Reacchable at first
+Number of players:  2
+Number of items:  1
+Number of listings:  3
+Starting Price:  26500 Winner BID:  28000  Name:  Gulácsi Time:  2020-11-26 09:00:22
+Starting Price:  23000 Winner BID:  24000  Name:  Sancho Time:  2020-11-26 09:00:22
+Starting Price:  450 Winner BID:  500  Name:  CATALYST Time:  2020-11-26 09:00:22
+Saving Data..
+Re list Button Not Clikable
+Cleared Sold Items
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 10:00:04
+Starting bot...
+Items in transfer list:  0
+Transfer List not Reacchable at first
+Number of players:  1
+Number of items:  0
+Number of listings:  1
+Starting Price:  29000 Winner BID:  29500  Name:  Handanovič Time:  2020-11-26 10:00:16
+Saving Data..
+Re list Button Not Clikable
+Cleared Sold Items
+/Users/cognistx2019/Documents/GitHub/fifa21
+-----------------------------------------
+Login Manually:  True
+Existing Session:  True
+2020-11-26 11:00:03
+Starting bot...
+Items in transfer list:  0
+Transfer List not Reacchable at first
+Number of players:  0
+Number of items:  0
+Number of listings:  0
+No items Sold
+Re list Button Not Clikable

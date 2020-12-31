@@ -1,0 +1,17 @@
+EA_EMAIL: EA@e.ea.com
+EMAIL_CREDENTIALS:
+  email: your_email@example.com
+  password: your_password
+INCREASE_COUNT: 5
+LOGIN_MANUALLY: true
+PLAYER:
+  cost: 350000
+  name: Kante
+URL: https://www.ea.com/en-gb/fifa/ultimate-team/web-app/
+USER:
+  email: ''
+  password: ''
+executor_url: http://127.0.0.1:52925
+fut_bin_data: /Users/cognistx2019/Documents/GitHub/fifa21/data/FutBinCards21_2020_11_23_all.csv
+futbin_names_catalogue: /Users/cognistx2019/Documents/GitHub/fifa21/data/FutBin_catalogue_all.csv
+session_id: 97b7d38f136a2cab43c9a62ec9791b65
