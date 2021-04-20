@@ -11,7 +11,7 @@ URL: https://www.ea.com/en-gb/fifa/ultimate-team/web-app/
 USER:
   email: ''
   password: ''
-executor_url: http://127.0.0.1:52925
+executor_url: http://127.0.0.1:51241
 fut_bin_data: /Users/cognistx2019/Documents/GitHub/fifa21/data/FutBinCards21_2020_11_23_all.csv
 futbin_names_catalogue: /Users/cognistx2019/Documents/GitHub/fifa21/data/FutBin_catalogue_all.csv
-session_id: 97b7d38f136a2cab43c9a62ec9791b65
+session_id: 00a3bb064314aedb0deb0472369a9057

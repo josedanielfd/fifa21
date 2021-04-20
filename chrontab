@@ -1,0 +1,1 @@
+*/70 * * * * cd /Users/cognistx2019/Documents/GitHub/fifa21/ && export PYTHONPATH=. && /Users/cognistx2019/anaconda3/envs/agrotech/bin/python3 src/main.py --login_manually --existing_session >> /Users/cognistx2019/Documents/GitHub/fifa21/logs.txt 2>&1
